@@ -1,0 +1,351 @@
+/* ==========================================
+   style.css — 퇴근확인 PWA 스타일
+   모바일 우선 디자인 (Mobile First)
+   ========================================== */
+
+/* ── CSS 변수 (색상 팔레트) ────────────────── */
+:root {
+  --bg-deep:      #0f0f1a;
+  --bg-card:      #1a1a2e;
+  --bg-field:     #16213e;
+  --accent:       #e94560;
+  --accent-soft:  rgba(233, 69, 96, 0.15);
+  --text-primary: #eaeaea;
+  --text-muted:   #7a7a9a;
+  --border:       #2a2a4a;
+  --success:      #00c896;
+  --error:        #ff6b6b;
+  --warning:      #ffa94d;
+}
+
+/* ── 기본 리셋 ─────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── 앱 전체 레이아웃 ──────────────────────── */
+.app-shell {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 40px;
+}
+
+/* ── 헤더 ──────────────────────────────────── */
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background-color: var(--bg-deep);
+  z-index: 10;
+}
+
+.header-icon {
+  font-size: 24px;
+}
+
+.app-header h1 {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: var(--text-primary);
+}
+
+/* ── 메인 폼 영역 ──────────────────────────── */
+.form-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── 각 입력 그룹 ──────────────────────────── */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.3px;
+}
+
+/* ── 입력칸 공통 ───────────────────────────── */
+input[type="date"],
+input[type="time"],
+input[type="text"],
+select {
+  width: 100%;
+  padding: 13px 14px;
+  background-color: var(--bg-field);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text-primary);
+  font-size: 15px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  -webkit-appearance: none;   /* iOS 기본 스타일 제거 */
+  appearance: none;
+}
+
+input:focus,
+select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+/* select 화살표 커스텀 */
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a7a9a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+
+select option {
+  background-color: var(--bg-card);
+}
+
+/* ── 사진 영역 ─────────────────────────────── */
+.photo-area {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* 실제 file input은 숨기고 label을 버튼처럼 */
+input[type="file"] {
+  display: none;
+}
+
+.photo-btn {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  background-color: var(--bg-field);
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  color: var(--text-muted);
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.photo-btn:hover,
+.photo-btn:active {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* 사진 미리보기 박스 */
+.preview-box {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.preview-box img {
+  width: 100%;
+  display: block;
+  max-height: 220px;
+  object-fit: cover;
+}
+
+.preview-box #removePhoto {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 4px 10px;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* ── 전송 버튼 ─────────────────────────────── */
+.submit-btn {
+  width: 100%;
+  padding: 16px;
+  margin-top: 4px;
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: opacity 0.2s, transform 0.1s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.submit-btn:active {
+  transform: scale(0.98);
+  opacity: 0.85;
+}
+
+.submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── 로딩 스피너 ───────────────────────────── */
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── 결과 메시지 ───────────────────────────── */
+.result-msg {
+  padding: 13px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.result-msg.success {
+  background-color: rgba(0, 200, 150, 0.15);
+  color: var(--success);
+  border: 1px solid rgba(0, 200, 150, 0.3);
+}
+
+.result-msg.error {
+  background-color: rgba(255, 107, 107, 0.15);
+  color: var(--error);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+}
+
+.result-msg.warning {
+  background-color: rgba(255, 169, 77, 0.15);
+  color: var(--warning);
+  border: 1px solid rgba(255, 169, 77, 0.3);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── 미전송 기록 섹션 ──────────────────────── */
+.pending-section {
+  margin: 8px 20px 0;
+  padding: 20px;
+  background-color: var(--bg-card);
+  border-radius: 14px;
+  border: 1px solid var(--border);
+}
+
+.pending-section h2 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge {
+  background-color: var(--accent);
+  color: white;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+.badge.zero {
+  background-color: var(--border);
+  color: var(--text-muted);
+}
+
+.pending-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+/* 미전송 기록 카드 */
+.pending-item {
+  background-color: var(--bg-field);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+.pending-item .p-date {
+  font-weight: 700;
+  color: var(--warning);
+  margin-bottom: 4px;
+}
+
+.pending-item .p-detail {
+  color: var(--text-muted);
+}
+
+/* 재전송 버튼 */
+.retry-btn {
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px;
+  background-color: transparent;
+  border: 1px solid var(--warning);
+  color: var(--warning);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.retry-btn:hover {
+  background-color: rgba(255, 169, 77, 0.1);
+}
+
+/* ── 유틸리티 ──────────────────────────────── */
+.hidden {
+  display: none !important;
+}
+
