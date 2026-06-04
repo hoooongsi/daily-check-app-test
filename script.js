@@ -90,7 +90,6 @@ removePhoto.addEventListener('click', function () {
 submitBtn.addEventListener('click', function () {
   var date   = dateInput.value;
   var time   = timeInput.value;
-  var status = statusSelect.value;
   var memo   = memoInput.value.trim();
 
     if (!date || !time) {
@@ -237,7 +236,6 @@ function showResult(message, type) {
 }
 
 function clearForm() {
-  statusSelect.value = '';
   memoInput.value    = '';
   photoInput.value   = '';
   resizedBase64      = null;
