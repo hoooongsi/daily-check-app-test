@@ -22,9 +22,12 @@
 
     <main class="form-container">
 
-      <div class="field-group">
+  <div class="field-group">
         <label for="date">📅 날짜</label>
-        <input type="date" id="date" />
+        <div style="display:flex; align-items:center; gap:10px;">
+          <input type="date" id="date" style="flex:1;" />
+          <span id="dayLabel" style="color:#e94560; font-weight:bold; white-space:nowrap;"></span>
+        </div>
       </div>
 
       <div class="field-group">
