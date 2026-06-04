@@ -14,7 +14,6 @@ if ('serviceWorker' in navigator) {
 
 var dateInput    = document.getElementById('date');
 var timeInput    = document.getElementById('time');
-var statusSelect = document.getElementById('status');
 var memoInput    = document.getElementById('memo');
 var photoInput   = document.getElementById('photoInput');
 var previewBox   = document.getElementById('previewBox');
@@ -91,15 +90,13 @@ submitBtn.addEventListener('click', function () {
   var status = statusSelect.value;
   var memo   = memoInput.value.trim();
 
-  if (!date || !time || !status) {
-    showResult('날짜, 퇴근시간, 상태는 필수 입력입니다.', 'error');
-    return;
+    if (!date || !time) {
+    showResult('날짜, 퇴근시간은 필수 입력입니다.', 'error');
   }
 
   var payload = {
     date:     date,
     time:     time,
-    status:   status,
     memo:     memo,
     photo:    resizedBase64 ? resizedBase64.split(',')[1] : null,
     fileName: resizedBase64 ? (date + '_' + time.replace(':', '') + '.jpg') : null
