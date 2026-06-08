@@ -92,8 +92,9 @@ submitBtn.addEventListener('click', function () {
   var time   = timeInput.value;
   var memo   = memoInput.value.trim();
 
-    if (!date || !time) {
+  if (!date || !time) {
     showResult('날짜, 퇴근시간은 필수 입력입니다.', 'error');
+    return;
   }
 
   var payload = {
@@ -174,7 +175,7 @@ function renderPending() {
     div.className = 'pending-item';
     div.innerHTML =
       '<div class="p-date">' + record.date + ' ' + record.time + '</div>' +
-      '<div class="p-detail">' + record.status + ' / ' + (record.memo || '메모 없음') + '</div>' +
+      '<div class="p-detail">' + (record.memo || '메모 없음') + '</div>' +
       '<div class="p-detail" style="font-size:11px; margin-top:4px; color:var(--text-muted);">저장시각: ' + (record.savedAt ? record.savedAt.replace('T', ' ').slice(0, 16) : '-') + '</div>';
     pendingList.appendChild(div);
   });
